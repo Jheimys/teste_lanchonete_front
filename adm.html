@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div>
+
+        <h1>Login</h1>
+
+        <form id="form">
+            <label for="nomes">Nome</label>
+            <input type="text" name="nomes" id="login" placeholder="Digite seu login" required>
+
+
+            <label for="senha">Senha</label>
+            <input type="password" name="senha" id="password" placeholder="digite sua senha" required>
+
+            <button type="submit">Entar</button>
+    
+        </form>
+            
+    </div>
+
+
+    <script>
+        const API_URL = 'http://localhost:8080/api/adm'
+        const form = document.querySelector('#form')
+
+      
+        form.onsubmit = function(e){
+            e.preventDefalt()
+
+            const login = document.forms['form'].login.value 
+            const password = document.forms['form'].password.value
+
+            fetch(API_URL,{
+                method:'POST',
+
+                headers:{
+                    'content-type': 'application/json',
+                },
+
+                body:JSON.stringify({
+                    login,
+                    password,
+                })
+
+            }).then(response => {
+                response.json().then(data => {
+                    if(data.message === 'sucsses'){
+                        location.href = 'index.html'
+                    } else{
+                        alert('Senha ou usúarios incorretos!')
+                    }
+                })
+            })
+        }
+
+       
+    </script>
+</body>
+</html>
+
+
